@@ -1,22 +1,22 @@
-import { BrowserRouter, Routes, Route, Link, NavLink } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
+import DefaultLayout from './layouts/DefaultLayout.jsx';
 import HomePage from './pages/HomePage.jsx';
 import AboutPage from './pages/About.jsx';
 import PostsPage from './pages/Posts.jsx';
-
-import NavBar from './components/NavBar.jsx';
+import Post from './pages/Post.jsx';
 
 export default function App() {
   return (
-    <>
-      <BrowserRouter>
-        <NavBar />
-        <Routes>
-          <Route path='/' Component={HomePage} />
-          <Route path='/about' Component={AboutPage} />
-          <Route path='/posts' Component={PostsPage} />
-        </Routes>
-      </BrowserRouter>
-    </>
-  )
-};
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<DefaultLayout />}>
+          <Route index element={<HomePage />} />
+          <Route path='about' element={<AboutPage />} />
+          <Route path='posts' element={<PostsPage />} />
+          <Route path='posts/:id' element={<Post />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
+}

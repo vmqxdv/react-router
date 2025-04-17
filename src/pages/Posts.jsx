@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 export default function Posts() {
   const [posts, setPosts] = useState([]);
@@ -14,8 +15,7 @@ export default function Posts() {
   const displayPosts = (posts) => {
     return posts.map(post => (
       <div key={post.id}>
-        <h3>{post.title}</h3>
-        <p>{post.body}</p>
+        <h3><Link to={`${post.id}`}>{post.title}</Link></h3>
       </div>
     ))
   };
