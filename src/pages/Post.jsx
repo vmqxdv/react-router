@@ -19,8 +19,10 @@ export default function Post() {
 
   useEffect(() => {
     setLoading(true);
-    axios.get(`https://jsonplaceholder.typicode.com/posts/${id + 1}`)
-      .then()
+    axios.get(`https://jsonplaceholder.typicode.com/posts/${Number(id) + 1}`)
+      .then(response => {
+        if (response.data) setNextPost(true);
+      })
       .catch(err => {
         if (err.response.status === 404)
           setNextPost(false);
