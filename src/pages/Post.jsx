@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 
 export default function Post() {
@@ -24,10 +24,20 @@ export default function Post() {
 
   const { title, body } = post;
 
+
+  const thereIsPost = (postId) => {
+    return postId !== undefined && postId !== null && postId !== '' && postId > 0;
+  };
+
   return (
     <>
       <h1>{title}</h1>
       <p>{body}</p>
+
+      <div className='buttons'>
+        {thereIsPost(post.id - 1) && <button><Link to={`/posts/${post.id - 1}`}>⬅️Precedente</Link></button>}
+        {thereIsPost(post.id + 1) && <button><Link to={`/posts/${post.id + 1}`}>➡️Successivo</Link></button>}
+      </div>
     </>
   );
 };
