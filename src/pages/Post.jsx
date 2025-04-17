@@ -5,6 +5,7 @@ import axios from 'axios';
 export default function Post() {
   const { id } = useParams();
   const [post, setPost] = useState(null);
+  const [nextPost, setNextPost] = useState(true);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -13,6 +14,16 @@ export default function Post() {
       .then(response => {
         setPost(response.data);
         setLoading(false);
+      });
+  }, [id]);
+
+  useEffect(() => {
+    setLoading(true);
+    axios.get(`https://jsonplaceholder.typicode.com/posts/${id + 1}`)
+      .then()
+      .catch(err => {
+        if (err.response.status === 404)
+          setNextPost(false);
       });
   }, [id]);
 
@@ -36,7 +47,7 @@ export default function Post() {
 
       <div className='buttons'>
         {thereIsPost(post.id - 1) && <button><Link to={`/posts/${post.id - 1}`}>⬅️Precedente</Link></button>}
-        {thereIsPost(post.id + 1) && <button><Link to={`/posts/${post.id + 1}`}>➡️Successivo</Link></button>}
+        {thereIsPost(post.id + 1) && nextPost && <button><Link to={`/posts/${post.id + 1}`}>➡️Successivo</Link></button>}
       </div>
     </>
   );
